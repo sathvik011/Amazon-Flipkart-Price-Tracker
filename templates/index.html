@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Price Scraper</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+</head>
+<body>
+    <h1>Product Price Scraper In Amazon & Flipkart</h1>
+    <form method="POST">
+        <label for="product_name">Enter Product Name:</label>
+        <input type="text" name="product_name" id="product_name">
+        <input type="submit" value="Scrape Prices">
+    </form>
+    {% if flipkart_price and amazon_price %}
+        <h2>Prices for {{ request.form.get("product_name") }}</h2>
+        <p>{{ flipkart_price }}</p>
+        <p>{{ amazon_price }}</p>
+    {% elif flipkart_price %}
+        <h2>Prices for {{request.form.get("product_name") }}</h2>
+        <p>{{ flipkart_price }}</p>
+        <p>No data found for Amazon.</p>
+    {% elif amazon_price %}
+        <h2>Prices for {{ request.form.get("product_name") }}</h2>
+        <p>No data found for Flipkart.</p>
+        <p>{{ amazon_price }}</p>
+    {% endif %}
+</body>
+</html>
